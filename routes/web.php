@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PriceChangeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +28,6 @@ Route::post('/addUser', [UserController::class, 'addUser'])->name('addUser');
 Route::post('/updateUser', [UserController::class, 'updateUser'])->name('updateUser');
 Route::post('/deleteUser', [UserController::class, 'deleteUser'])->name('deleteUser');
 
-
-Route::get('/', [AuthController::class, 'loginForm'])->name('login');
-
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
 
 Route::post('/login', [AuthController::class, 'login'])
@@ -41,3 +39,6 @@ Route::post('/logout', [AuthController::class, 'logout'])
 Route::get('/dashboard', [AuthController::class, 'dashboardForm'])
     ->name('dashboard')
     ->middleware('auth');
+
+
+    Route::get('/price_change', [PriceChangeController::class, 'create'])->name('price_change');
