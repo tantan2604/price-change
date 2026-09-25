@@ -1,49 +1,53 @@
 @extends('layouts.app')
 
-@section('title','Users')
-
+@section('title', 'Users')
 
 @section('content')
 
+<div class="d-flex min-vh-100">
 
-<!-- Sidebar -->
-@include('components.sidebar')
-<div class="container mt-4">
+    <!-- Sidebar -->
+    @include('components.sidebar')
 
+    <!-- Main Content -->
+    <main class="main-content flex-grow-1 p-4">
 
+        <div class="container-fluid">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="mb-0">User List</h2>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">User List</h2>
 
-        <button type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#addUserModal">
-            Add user
-        </button>
-    </div>
+                <button type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addUserModal">
+                    Add User
+                </button>
+            </div>
 
-    <table class="table table-bordered" id="users-table">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="users-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>User Name</th>
+                            <th>Role</th>
+                            <th>Email</th>
+                            <th>Created At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
 
-        <thead>
+        </div>
 
-            <tr>
-                <th>No</th>
-                <th>User Name</th>
-                <th>Role</th>
-                <th>Email</th>
-                <th>Created At</th>
-                <th>Action</th>
-            </tr>
-
-        </thead>
-
-    </table>
+    </main>
 
 </div>
 
-
 <!-- Add User Modal -->
+
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
@@ -51,6 +55,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
+
                 <h5 class="modal-title" id="addUserModalLabel">
                     Add User
                 </h5>
@@ -59,32 +64,96 @@
                     class="btn-close"
                     data-bs-dismiss="modal">
                 </button>
+
             </div>
 
             <div class="modal-body">
 
                 <form id="addUserForm">
 
+                    <!-- User Name -->
                     <div class="mb-3">
-                        <label class="form-label">User Name</label>
-                        <input type="text" class="form-control" name="name" id="user_name">
+                        <label class="form-label">
+                            User Name
+                        </label>
+
+                        <input type="text"
+                            class="form-control"
+                            name="user_name"
+                            id="user_name">
+
+                        <div class="text-danger small mt-1" id="user_name_error"></div>
                     </div>
 
+
+                    <!-- Role -->
                     <div class="mb-3">
-                        <label class="form-label">Role</label>
-                        <select class="form-select" name="role" id="role">
+                        <label class="form-label">
+                            Role
+                        </label>
+
+                        <select class="form-select"
+                            name="role"
+                            id="role">
+
                             <option value="">Select Role</option>
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
+
                         </select>
+
+                        <div class="text-danger small mt-1" id="role_error"></div>
                     </div>
 
+
+                    <!-- Email -->
                     <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="email">
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input type="email"
+                            class="form-control"
+                            name="email"
+                            id="email">
+
+                        <div class="text-danger small mt-1" id="email_error"></div>
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input type="password"
+                            class="form-control"
+                            name="password"
+                            id="password">
+
+                        <div class="text-danger small mt-1" id="password_error"></div>
+                    </div>
+
+
+                    <!-- Confirm Password -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Confirm Password
+                        </label>
+
+                        <input type="password"
+                            class="form-control"
+                            name="password_confirmation"
+                            id="password_confirmation">
+
+                        <div class="text-danger small mt-1"
+                            id="password_confirmation_error"></div>
                     </div>
 
                 </form>
+
+
 
             </div>
 
@@ -111,7 +180,8 @@
 
 </div>
 
-<!-- Add User Modal -->
+<!-- Update User Modal -->
+
 <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateUserModalLabel" aria-hidden="true">
 
     <div class="modal-dialog">
@@ -119,7 +189,8 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="UpdateUserModalLabel">
+
+                <h5 class="modal-title" id="updateUserModalLabel">
                     Update User
                 </h5>
 
@@ -127,6 +198,7 @@
                     class="btn-close"
                     data-bs-dismiss="modal">
                 </button>
+
             </div>
 
             <div class="modal-body">
@@ -134,27 +206,58 @@
                 <form id="updateUserForm">
 
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">ID:</label>
-                        <input type="text" class="form-control" id="user_id">
+                        <label for="user_id"
+                            class="col-form-label">
+                            ID:
+                        </label>
+
+                        <input type="text"
+                            class="form-control"
+                            id="user_id"
+                            readonly>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">User Name</label>
-                        <input type="text" class="form-control" id="user_name-1">
+                        <label class="form-label">
+                            User Name
+                        </label>
+
+                        <input type="text"
+                            class="form-control"
+                            id="user_name-1">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Role</label>
-                        <select class="form-select" id="role-1">
-                            <option value="">Select Role</option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
+                        <label class="form-label">
+                            Role
+                        </label>
+
+                        <select class="form-select"
+                            id="role-1">
+
+                            <option value="">
+                                Select Role
+                            </option>
+
+                            <option value="admin">
+                                Admin
+                            </option>
+
+                            <option value="user">
+                                User
+                            </option>
+
                         </select>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email-1">
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input type="email"
+                            class="form-control"
+                            id="email-1">
                     </div>
 
                 </form>
@@ -170,7 +273,6 @@
                 </button>
 
                 <button type="button"
-                    form="addUserForm"
                     class="btn btn-primary"
                     id="updateUserBtn">
                     Save User
@@ -295,31 +397,76 @@
     });
 
 
-
     $(document).on('click', '#saveUserBtn', function() {
+
+        // Clear previous errors
+        $('.text-danger').text('');
+        $('.form-control, .form-select').removeClass('is-invalid');
 
         var user_name = $('#user_name').val();
         var role = $('#role').val();
         var email = $('#email').val();
-
+        var password = $('#password').val();
+        var password_confirmation = $('#password_confirmation').val();
 
         $.ajax({
-            url: "{{ route('addUser')}}",
+
+            url: "{{ route('addUser') }}",
+
             type: "POST",
+
             data: {
-                _token: "{{csrf_token()}}",
+                _token: "{{ csrf_token() }}",
                 user_name: user_name,
                 role: role,
                 email: email,
+                password: password,
+                password_confirmation: password_confirmation
             },
+
             success: function(response) {
-                $('#users-table').DataTable().ajax.reload()
-                $('#addUserModal').modal('hide')
+
+                $('#users-table')
+                    .DataTable()
+                    .ajax.reload();
+
+                $('#addUserModal').modal('hide');
+
+                $('#addUserForm')[0].reset();
+
+            },
+
+            error: function(xhr) {
+
+                if (xhr.status === 422) {
+
+                    let errors = xhr.responseJSON.errors;
+
+                    $.each(errors, function(field, messages) {
+
+                        // Show message
+                        $('#' + field + '_error')
+                            .text(messages[0]);
+
+                        // Add red border
+                        $('#' + field)
+                            .addClass('is-invalid');
+
+                    });
+
+                } else {
+
+                    console.log(xhr.responseText);
+
+                    alert('Failed to add user.');
+
+                }
+
             }
 
-        })
+        });
 
-    })
+    });
 </script>
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -59,7 +60,7 @@ class UserController extends Controller
             ]);
     }
 
-    
+
     public function deleteUser(Request $request)
     {
         // dd($request->id);
@@ -71,15 +72,31 @@ class UserController extends Controller
         // dd($data);
     }
 
+
     public function addUser(Request $request)
     {
-        // dd($request->all());
+        $request->validate([
+            'user_name' => 'required|string|max:255',
+            'role' => 'required|in:admin,user',
+            'email' => 'required|email|unique:users,email',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed'
+            ],
+        ]);
+
         User::create([
             'user_name' => $request->user_name,
             'role' => $request->role,
             'email' => $request->email,
-            'password' =>  'password'
+            'password' => Hash::make($request->password),
+        ]);
 
+        return response()->json([
+            'success' => true,
+            'message' => 'User added successfully.'
         ]);
     }
 }

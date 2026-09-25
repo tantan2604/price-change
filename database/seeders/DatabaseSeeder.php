@@ -22,5 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
         ]); // Runs the code you wrote in UserSeeder.php
+
+        $this->call([
+            PriceChangeSeeder::class,
+        ]);
     }
 }

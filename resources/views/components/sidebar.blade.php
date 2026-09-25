@@ -21,6 +21,13 @@
             </a>
         </li>
 
+        <li class="nav-item mb-2">
+            <a href="/price_change" class="nav-link">
+                <i class="bi bi-people-fill"></i>
+                <span class="menu-text ms-2">Create Price change</span>
+            </a>
+        </li>
+
 
         <li class="nav-item mb-2">
             <a href="#" class="nav-link">
@@ -109,7 +116,7 @@
 
     /* ICON STYLE */
     .toggle-btn i {
-        color: 	#303030;
+        color: #303030;
         /* change icon color here */
         font-size: 20px;
     }
